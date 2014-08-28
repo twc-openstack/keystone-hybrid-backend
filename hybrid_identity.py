@@ -102,7 +102,7 @@ class Identity(sql_ident.Identity):
         except AttributeError:
             # LDAP Users are already dicts which is fine
             pass
-        return identity.filter_user(user.to_dict())
+        return identity.filter_user(user)
 
     def get_user_by_name(self, user_name, domain_id):
         LOG.debug("Called get_user_by_name %s, %s" % (user_name, domain_id))
