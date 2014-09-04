@@ -117,5 +117,6 @@ class Identity(sql_ident.Identity):
 
     def list_users(self, hints):
         sql_users = super(Identity, self).list_users(hints)
-        ldap_users = self.user.get_all_filtered()
-        return sql_users + ldap_users
+        return sql_users
+#        ldap_users = self.user.get_all_filtered()
+#        return sql_users + ldap_users
