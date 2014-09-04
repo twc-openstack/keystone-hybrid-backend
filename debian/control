@@ -1,0 +1,19 @@
+Source: keystone-hybrid-backend
+Section: python
+Priority: optional
+Maintainer: Matt Fischer <mfisch@ubuntu.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/SUSE-Cloud/keystone-hybrid-backend
+Vcs-Git: git://github.webapps.rr.com/jfdi/keystone-hybrid-backend.git
+Vcs-Browser: https://github.webapps.rr.com/jfdi/keystone-hybrid-backend
+
+Package: keystone-hybrid-backend
+Architecture: all
+Depends: ${misc:Depends},
+  keystone
+Description: LDAP/SQL hybrid Identity/Assignment drivers for Keystone
+ Hybrid identity and assignment drivers for keystone allow local accounts
+ to be stored in SQL and remote accounts in LDAP. Requires clients have
+ python-keystoneclient (>= 0.4.0) in order to be functional. NOTE: The
+ hybrid Assignment driver requires configuration in the python file.

@@ -1,0 +1,2 @@
+hybrid_identity.py     /usr/lib/python2.7/dist-packages/keystone/identity/backends/
+hybrid_assignment.py     /usr/lib/python2.7/dist-packages/keystone/assignment/backends/
