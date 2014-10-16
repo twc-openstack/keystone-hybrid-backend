@@ -1,3 +1,9 @@
+keystone-hybrid-backend (0.7) trusty; urgency=medium
+
+  * Enable support for Juno RC2
+
+ -- Matt Fischer <mfisch@ubuntu.com>  Wed, 15 Oct 2014 19:29:56 -0600
+
 keystone-hybrid-backend (0.6) trusty; urgency=medium
 
   * Merge back to the original code, drop most of my changes,

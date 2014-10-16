@@ -55,7 +55,8 @@ class Identity(sql_ident.Identity):
         # we can just check if it coincides with the one we got
         conn = None
         try:
-            assert utils.check_password(password, user_ref['password'])
+            hashed_pw = utils.hash_password(password)
+            assert utils.check_password(password, hashed_pw)
         except TypeError:
             raise AssertionError('Invalid user / password')
         except KeyError:  # if it doesn't have a password, it must be LDAP
