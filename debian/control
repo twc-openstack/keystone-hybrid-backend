@@ -3,6 +3,7 @@ Section: python
 Priority: optional
 Maintainer: Matt Fischer <mfisch@ubuntu.com>
 Build-Depends: debhelper (>= 8.0.0)
+Depends: python-ldap, python-ldappool
 Standards-Version: 3.9.4
 Homepage: https://github.com/SUSE-Cloud/keystone-hybrid-backend
 Vcs-Git: git://github.webapps.rr.com/jfdi/keystone-hybrid-backend.git
