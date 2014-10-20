@@ -55,15 +55,15 @@ class Identity(sql_ident.Identity):
         # we can just check if it coincides with the one we got
         conn = None
         try:
-            hashed_pw = utils.hash_password(password)
-            assert utils.check_password(password, hashed_pw)
+            assert utils.check_password(password, user_ref['password'])
         except TypeError:
             raise AssertionError('Invalid user / password')
-        except KeyError:  # if it doesn't have a password, it must be LDAP
+        except (KeyError, AssertionError):  # if it doesn't have a password, it must be LDAP
             try:
+                user_name = user_ref['name']
                 # get_connection does a bind for us which checks the password
-                conn = self.user.get_connection(self.user._id_to_dn(user_id),
-                                                password)
+                conn = self.user.get_connection(self.user._id_to_dn(user_name),
+                                                password, end_user_auth=True)
                 assert conn
             except Exception:
                 raise AssertionError('Invalid user / password')
@@ -75,11 +75,7 @@ class Identity(sql_ident.Identity):
                     conn.unbind_s()
         else:
             LOG.debug("Authenticated user with SQL.")
-            # turn the SQLAlchemy User object into a dict to match what
-            # LDAP would return
-            user_ref = user_ref.to_dict()
-
-        return identity.filter_user(user_ref)
+        return identity.filter_user(user_ref.to_dict())
 
     def is_domain_aware(self):
         return self.domain_aware
