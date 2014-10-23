@@ -82,13 +82,17 @@ class Identity(sql_ident.Identity):
 
     def _get_user(self, session, user_id):
         # try SQL first
-        try:
-            user_ref = super(Identity, self)._get_user(session, user_id)
-        except exception.UserNotFound:
-            # then try LDAP
-            return self.user.get(user_id)
-        else:
-            return user_ref
+        user_ref = super(Identity, self)._get_user(session, user_id)
+        return user_ref
+        # we don't want to do any lookups to LDAP since we rely
+        # on local copies of SQL users.
+#        try:
+#            user_ref = super(Identity, self)._get_user(session, user_id)
+#        except exception.UserNotFound:
+#            # then try LDAP
+#            return self.user.get(user_id)
+#        else:
+#            return user_ref
 
     def get_user(self, user_id):
         LOG.debug("Called get_user %s" % user_id)
