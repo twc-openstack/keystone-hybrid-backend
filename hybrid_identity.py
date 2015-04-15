@@ -19,14 +19,15 @@
 from keystone.common import dependency
 from keystone.common import sql
 from keystone.common import utils
-from keystone import config
 from keystone import exception
 from keystone import identity
 from keystone.identity.backends import ldap as ldap_backend
 from keystone.identity.backends import sql as sql_ident
-from keystone.openstack.common import log
 
-CONF = config.CONF
+from oslo_config import cfg
+from oslo_log import log
+
+CONF = cfg.CONF
 LOG = log.getLogger(__name__)
 
 
