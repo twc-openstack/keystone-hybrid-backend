@@ -1,3 +1,9 @@
+keystone-hybrid-backend (0.9) trusty; urgency=medium
+
+  * New version for Liberty
+
+ -- Matt Fischer <mfisch@ubuntu.com>  Mon, 20 Oct 2014 19:29:56 -0600
+
 keystone-hybrid-backend (0.8) trusty; urgency=medium
 
   * New version for Kilo
