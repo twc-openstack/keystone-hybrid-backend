@@ -48,37 +48,3 @@ LDAP user-ids returned by the `keystone user-list` query.
 ```
 keystone user-role-add --user-id=12345 --role-id <role-id> --tenant-id <tenant-id>
 ```
-
-
-## The Assignment Backend
-
-This allows setting a default role and project for users signing in via LDAP.
-The default role is hacked in at runtime and added to any existing roles for
-the given user/project combination. This should be useful when you have a lot
-of LDAP users which you want to grant a default role to in OpenStack
-automatically only if/when they decide to use it. Since the database isn't
-touched, all you have to do to disable the default role is to switch off the
-assignment backend in `keystone.conf`.
-
-It is built on top of the SQL assignment backend.
-
-
-### Installation
-
-Edit the `hybrid_assignment.py` file in this project and set the
-`DEFAULT_PROJECT`, `DEFAULT_ROLE` and `DEFAULT_DOMAIN` constants at the top of
-the file. The corresponding objects should already exist in the database!
-
-Then copy the edited `hybrid_assignment.py` file to the
-`keystone/identity/backends/` folder of your installation (e.g.
-`/usr/lib/python/site-packages/keystone/assignment/backends/hybrid_assignment.py`).
-
-
-Set this in your `keystone.conf` file:
-
-```
-[assignment]
-driver = keystone.assignment.backends.hybrid_assignment.Assignment
-```
-
-Restart keystone.
