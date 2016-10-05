@@ -20,7 +20,7 @@ from keystone.common import dependency
 from keystone.common import sql
 from keystone.common import utils
 from keystone import exception
-from keystone import identity
+from keystone.identity.backends import base
 from keystone.identity.backends import ldap as ldap_backend
 from keystone.identity.backends import sql as sql_ident
 
@@ -78,7 +78,7 @@ class Identity(sql_ident.Identity):
                         conn.unbind_s()
             else:
                 LOG.debug("Authenticated user with SQL.")
-            return identity.filter_user(user_ref.to_dict())
+            return base.filter_user(user_ref.to_dict())
 
     def is_domain_aware(self):
         # XXX we only need domain_aware to be False when authenticating
@@ -115,7 +115,7 @@ class Identity(sql_ident.Identity):
             except AttributeError:
                 # LDAP Users are already dicts which is fine
                 pass
-            return identity.filter_user(user)
+            return base.filter_user(user)
 
     def get_user_by_name(self, user_name, domain_id):
         LOG.debug("Called get_user_by_name %s, %s" % (user_name, domain_id))
@@ -124,7 +124,7 @@ class Identity(sql_ident.Identity):
             user = super(Identity, self).get_user_by_name(user_name, domain_id)
         except exception.UserNotFound:
             # then try LDAP
-            return identity.filter_user(self.user.get_by_name(user_name))
+            return base.filter_user(self.user.get_by_name(user_name))
         else:
             return user
 
